@@ -1,0 +1,240 @@
+nelmio_api_doc:
+
+    documentation:
+        info:
+            title: API Library IUT Bordeaux
+            description: API for the web application intended for the library of the IUT of Bordeaux
+            version: dev
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: Bearer
+            schemas:
+                Book-min:
+                    type: object 
+                    properties:
+                        id:
+                            type: integer
+                            example: 138
+                        name:
+                            type: string
+                            example: "A L Est D Eden"
+                        image:
+                            type: string
+                            example: "http://books.google.com/books/content?id=rVMmPwAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+                        publishedDate:
+                            type: string
+                            example: "1974-06-01"
+                        authors:
+                            type: array
+                            items:
+                                ref: '#/components/schemas/Author'
+
+                Book-full:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                            example: "The Casual Vacancy"
+                        image:
+                            type: string
+                            example: "http://books.google.com/books/content?id=FjMbGietIZ4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                        description:
+                            type: string
+                            example: "When Barry Fairbrother dies in his early forties, the town of Pagford is left in shock. Pagford is, seemingly, an English idyll, with a cobbled market square and an ancient abbey, but what lies behind the pretty facade is a town at war. Rich at war with poor, teenagers at war with their parents, wives at war with their husbands, teachers at war with their pupils. . . Pagford is not what it first seems. And the empty seat left by Barry on the parish council soon becomes the catalyst for the biggest war the town has yet seen. Who will triumph in an election fraught with passion, duplicity and unexpected revelations? A big novel about a small town, THE CASUAL VACANCY is J.K. Rowling's first novel for adults. It is the work of a storyteller like no other."
+                        pageCount:
+                            type: integer
+                            example: 480
+                        publishedDate:
+                            type: string
+                            example: "2012-09-27"
+                        language:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    example: "en"
+                        publisher:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    example: "Hachette UK"
+                        categories:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    name:
+                                        type: string
+                                        example: "Fiction"
+                        authors:
+                            type: array
+                            items:
+                                ref: '#/components/schemas/Author'
+
+                Author:
+                    type: object
+                    properties:
+                        name:
+                            type: string
+                            example: "J.K. Rowling"
+
+                Login:
+                    type: object
+                    properties:
+                        token:
+                            type: string
+                            example: "dcae9cae45329db905cd05a4734343e7633cb534c80435a3a064c974b9aa"
+                        email:
+                            type: string
+                            example: "benjamin.williams@example.com"
+                        name:
+                            type: string
+                            example: "Benjamin Williams"
+                        profile_picture:
+                            type: string
+                            example: "https://randomuser.me/api/portraits/men/97.jpg"
+                        roles:
+                            type: array
+                            items:
+                                type: string
+                                example: "ROLE_USER"
+
+                User:
+                    type: object
+                    properties:
+                        mail:
+                            type: string
+                            example: "seyyed.vanschelven@example.com"
+                        name:
+                            type: string
+                            example: "Seyyed Van Schelven"
+                        profilePicture:
+                            type: string
+                            example: "https://randomuser.me/api/portraits/men/34.jpg"
+
+                UserLogin:
+                    type: object
+                    properties:
+                        mail:
+                            type: string
+                            example: "rois2coeurs@gmail.com"
+                        password:
+                            type: string
+                            example: "bonsoir123"
+
+                Borrows:
+                    type: object
+                    properties:
+                        borrows:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    book:
+                                        ref: '#/components/schemas/Book-min'
+
+                get-books:
+                    type: object
+                    properties:
+                        results:
+                            type: integer
+                            example: 1
+                        books:
+                            type: array
+                            items:
+                                ref: '#/components/schemas/Book-min'
+
+                get-books-latest:
+                    type: object
+                    properties:
+                        books:
+                            type: array
+                            items:
+                                ref: '#/components/schemas/Book-min'
+
+                get-book:
+                    type: object
+                    properties:
+                        book:
+                            ref: '#/components/schemas/Book-full'
+
+                get-authors:
+                    type: object
+                    properties:
+                        authors:
+                            type: array
+                            items:
+                                ref: '#/components/schemas/Author'
+
+                get-all-authors:
+                    type: object
+                    properties:
+                        results:
+                            type: integer
+                            example: 1
+                        authors:
+                            type: array
+                            items:
+                                ref: '#/components/schemas/Author'
+
+                get-user:
+                    type: object
+                    properties:
+                        user:
+                            ref: '#/components/schemas/User'
+                
+                get-follow:
+                    type: object
+                    properties:
+                        following:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    mail:
+                                        type: string
+                                        example: "seyyed.vanschelven@example.com"
+                                    name:
+                                        type: string
+                                        example: "Seyyed Van Schelven"
+                                    profilePicture:
+                                        type: string
+                                        example: "https://randomuser.me/api/portraits/men/34.jpg"
+                                    lastThreeBorrows:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                book:
+                                                    ref: '#/components/schemas/Book-min'
+                
+                get-suggestion-books:
+                    type: object
+                    properties:
+                        books:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    score:
+                                        type: integer
+                                        example: 52
+                                    book:
+                                        ref: '#/components/schemas/Book-min'
+                
+                get-favorites:
+                    type: object
+                    properties:
+                        favorites:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    book:
+                                        ref: '#/components/schemas/Book-min'
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

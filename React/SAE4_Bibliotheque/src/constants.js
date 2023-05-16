@@ -1,0 +1,1 @@
+export const URI = 'https://api.sae4.valentinraillard.fr/api';
